@@ -11,3 +11,7 @@ script:
     - "--ntasks=<%= num_cores %>"
     - "--account=<%= custom_account.delete(' ') %>"
     - "--partition=<%= custom_queue.delete(' ') %>"
+    <%- extra_arguments.split.each do |e| -%>
+    - "<%= e %>"
+    <%- end -%>
+

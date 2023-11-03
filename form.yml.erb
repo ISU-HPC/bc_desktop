@@ -100,6 +100,11 @@ attributes:
     <%- end -%>
   <%- end -%>
 
+  extra_arguments:
+     label: "Extra Optional Slurm Arguments"
+     help: "Provide extra arguments for Slurm here. Examples: --mail-type=BEGIN,END,FAIL --mail-user=username@usda.gov --begin=now+1hour"
+     widget: text_field
+     value: ""
 
 form:
   - bc_vnc_idle
@@ -113,5 +118,6 @@ form:
   - num_cores
   - mem_req
   - job_name
+  - extra_arguments
   - screen_size  
 
