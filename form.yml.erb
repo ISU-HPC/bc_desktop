@@ -101,7 +101,7 @@ attributes:
   <%- end -%>
 
   extra_arguments:
-     label: "Extra Optional Slurm Arguments"
+     label: "Optional Slurm Arguments"
      help: "Provide extra arguments for Slurm here. Examples: --mail-type=BEGIN,END,FAIL --mail-user=username@usda.gov --begin=now+1hour"
      widget: text_field
      value: ""
@@ -114,10 +114,10 @@ form:
   - custom_queue
   - slurm_qos
   - bc_num_hours
-  - bc_num_slots
+  #- bc_num_slots
   - num_cores
   - mem_req
-  - job_name
+  #- job_name    # Per VRSC-13520
   - extra_arguments
   - screen_size  
 
