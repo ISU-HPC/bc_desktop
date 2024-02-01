@@ -14,6 +14,32 @@ fi
 xfconf-query -c xfce4-session -p /startup/ssh-agent/enabled -n -t bool -s false
 xfconf-query -c xfce4-session -p /startup/gpg-agent/enabled -n -t bool -s false
 
+# Disable lockscreen and screensaver
+
+if [[ -f "${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-screensaver.xml" ]]; then
+  mv "${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-screensaver.xml" "${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-screensaver.xml.bak"
+fi
+
+xfconf-query -c xfce4-session -p /lock/enabled -t bool -s false
+xfconf-query -c xfce4-session -p /lock/sleep-activation -t bool -s false
+xfconf-query -c xfce4-session -p /saver/enabled -t bool -s false
+xfconf-query -c xfce4-session -p /saver/mode -t int -s 0
+
+cat <<EOF > ${HOME}/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-screensaver.xml
+<?xml version="1.0" encoding="UTF-8"?>
+
+<channel name="xfce4-screensaver" version="1.0">
+  <property name="lock" type="empty">
+    <property name="sleep-activation" type="bool" value="false"/>
+    <property name="enabled" type="bool" value="false"/>
+  </property>
+  <property name="saver" type="empty">
+    <property name="mode" type="int" value="0"/>
+    <property name="enabled" type="bool" value="false"/>
+  </property>
+</channel>
+EOF
+
 # Disable useless services on autostart
 AUTOSTART="${HOME}/.config/autostart"
 rm -fr "${AUTOSTART}"    # clean up previous autostarts
@@ -40,5 +66,6 @@ fi
 # see https://github.com/OSC/ondemand/issues/700
 eval $(dbus-launch --sh-syntax)
 
+
 # Start up xfce desktop (block until user logs out of desktop)
-xfce4-session
+startxfce4
