@@ -77,6 +77,11 @@ attributes:
     widget: text_field
     value: ""
 
+  extra_arguments:
+     label: "Optional Slurm Arguments"
+     help: "Arguments such as --exclusive or --job-name can be specified here."
+     widget: text_field
+     value: ""
 
 form:
   - bc_vnc_idle
@@ -90,4 +95,4 @@ form:
   - num_cores
   - mem_req
   - job_name
-
+  - extra_arguments
